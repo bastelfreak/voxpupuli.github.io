@@ -12,9 +12,20 @@
         {% if page.url contains link.url %}
           {% assign active = 'active' %}
         {% endif %}
+        {% if link.sublinks %}
+          <li class="dropdown {{ class }}">
+              <a role="button" aria-haspopup="true" aria-expanded="false">{{ link.title }} <span class="caret"></span></a>
+              <div class="dropdown-content">
+                  {% for sublink in link.sublinks %}
+                    <a href="{{ sublink.url }}">{{ sublink.title }}</a>
+                  {% endfor %}
+              </div>
+          </li>
+      {% else %}
       <li class="nav-item">
         <a class="nav-link {{ active }}" href="{{site.url}}{{site.baseurl}}{{ link.url }}" data-proofer-ignore>{{ link.title }}</a>
       </li>
+      {% endif %}
       {% endfor %}
     </ul>
     <ul class="navbar-nav ms-auto">
